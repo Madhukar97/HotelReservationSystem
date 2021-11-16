@@ -30,6 +30,9 @@ public class HotelReservation {
                 System.out.println("Enter the weekday and weekend rate");
                 hotelObj.setWeekdayRate(sc.nextInt());
                 hotelObj.setWeekendRate(sc.nextInt());
+                System.out.println("Enter the special rates for reward customer for weekday and weekend");
+                hotelObj.setSpecialWeekdayRate(sc.nextInt());
+                hotelObj.setSpecialWeekendRate(sc.nextInt());
                 System.out.println("Enter rating of the hotel from 1-5");
                 hotelObj.setRating(sc.nextInt());
                 hotelReservation.put(name, hotelObj);

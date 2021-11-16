@@ -8,6 +8,24 @@ class Hotel {
     String dayType;
     int weekdayRate;
     int weekendRate;
+    int specialWeekdayRate;
+    int specialWeekendRate;
+
+    public int getSpecialWeekdayRate() {
+        return specialWeekdayRate;
+    }
+
+    public void setSpecialWeekdayRate(int specialWeekdayRate) {
+        this.specialWeekdayRate = specialWeekdayRate;
+    }
+
+    public int getSpecialWeekendRate() {
+        return specialWeekendRate;
+    }
+
+    public void setSpecialWeekendRate(int specialWeekendRate) {
+        this.specialWeekendRate = specialWeekendRate;
+    }
 
     public int getWeekdayRate() {
         return weekdayRate;
