@@ -18,6 +18,7 @@ public class HotelReservation {
                 Hotel hotelObj = new Hotel();
                 System.out.println("Enter the name of hotel");
                 String name = sc.nextLine();
+                hotelObj.setHotelName(name);
                 hotelReservation.put(name,hotelObj);
             }
             if (option==2){
