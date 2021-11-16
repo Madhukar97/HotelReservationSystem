@@ -48,8 +48,10 @@ public class HotelReservation {
         int cheapestTotalRate = Integer.MAX_VALUE;
         int totalRate;
         String[] array;
+        int hotelRating = 0;
         String[] hotelNamesArray = new String[hotelReservation.size()];
         Integer[] ratesArray = new Integer[hotelReservation.size()];
+        Integer[] hotelRatings = new Integer[hotelReservation.size()];
         String cheapestHotelName = null;
         Scanner sc = new Scanner(System.in);
 
@@ -67,23 +69,25 @@ public class HotelReservation {
 
         if (weekEnds == 0) {
             for (Map.Entry<String, Hotel> entry : hotelReservation.entrySet()) {
-                totalRate = entry.getValue().getWeekdayRate() * 2;
+                totalRate = entry.getValue().getWeekdayRate() * array.length;
                 if (totalRate < cheapestTotalRate) {
                     cheapestTotalRate = totalRate;
                     cheapestHotelName = entry.getKey();
+                    hotelRating = entry.getValue().getRating();
                 }
             }
-            System.out.println(" The cheapest hotel price is " + cheapestHotelName + " $" + cheapestTotalRate);
+            System.out.println(" The cheapest hotel price is " + cheapestHotelName + " Rating : " + hotelRating + " Total Rates = $" + cheapestTotalRate);
         }
         if (weekEnds == 2) {
             for (Map.Entry<String, Hotel> entry : hotelReservation.entrySet()) {
-                totalRate = entry.getValue().getWeekendRate() * 2;
+                totalRate = entry.getValue().getWeekendRate() * array.length;
                 if (totalRate < cheapestTotalRate) {
                     cheapestTotalRate = totalRate;
                     cheapestHotelName = entry.getKey();
+                    hotelRating = entry.getValue().getRating();
                 }
             }
-            System.out.println(" The cheapest hotel price is " + cheapestHotelName + " $" + cheapestTotalRate);
+            System.out.println(" The cheapest hotel price is " + cheapestHotelName + " Rating : " + hotelRating + " Total Rates = $" + cheapestTotalRate);
         }
         if (weekEnds == 1) {
             int z = 0;
@@ -91,20 +95,31 @@ public class HotelReservation {
                 totalRate = entry.getValue().getWeekendRate() + entry.getValue().getWeekdayRate();
                 ratesArray[z] = totalRate;
                 hotelNamesArray[z] = entry.getKey();
+                hotelRatings[z] = entry.getValue().getRating();
                 z++;
                 if (totalRate < cheapestTotalRate) {
                     cheapestTotalRate = totalRate;
                     cheapestHotelName = entry.getKey();
+                    hotelRating = entry.getValue().getRating();
                 }
             }
             if (ratesArray[0].equals(ratesArray[1])) {
-                System.out.println(" The cheapest hotel price is " + hotelNamesArray[0] + " " + hotelNamesArray[1] + "  $" + cheapestTotalRate);
+                if (hotelRatings[0] > hotelRatings[1]) {
+                    System.out.println(" The cheapest hotel price is " + hotelNamesArray[0] + " Rating : " + hotelRatings[0] + "  Total Rates = $" + cheapestTotalRate);
+                } else
+                    System.out.println(" The cheapest hotel price is " + hotelNamesArray[1] + " Rating : " + hotelRatings[1] + "  Total Rates = $" + cheapestTotalRate);
             } else if (ratesArray[0].equals(ratesArray[2])) {
-                System.out.println(" The cheapest hotel price is " + hotelNamesArray[0] + " " + hotelNamesArray[2] + "  $" + cheapestTotalRate);
+                if (hotelRatings[0] > hotelRatings[2]) {
+                    System.out.println(" The cheapest hotel price is " + hotelNamesArray[0] + " Rating : " + hotelRatings[0] + "  Total Rates = $" + cheapestTotalRate);
+                } else
+                    System.out.println(" The cheapest hotel price is " + hotelNamesArray[2] + " Rating : " + hotelRatings[2] + "  Total Rates = $" + cheapestTotalRate);
             } else if (ratesArray[1].equals(ratesArray[2])) {
-                System.out.println(" The cheapest hotel price is " + hotelNamesArray[1] + " " + hotelNamesArray[2] + "  $" + cheapestTotalRate);
+                if (hotelRatings[1] > hotelRatings[2]) {
+                    System.out.println(" The cheapest hotel price is " + hotelNamesArray[1] + " Rating : " + hotelRatings[1] + "  Total Rates = $" + cheapestTotalRate);
+                } else
+                    System.out.println(" The cheapest hotel price is " + hotelNamesArray[2] + " Rating : " + hotelRatings[2] + "  Total Rates = $" + cheapestTotalRate);
             } else {
-                System.out.println("The cheapest hotel price is " + cheapestHotelName + "  $" + cheapestTotalRate);
+                System.out.println("The cheapest hotel price is " + cheapestHotelName + " Rating : " + hotelRating + "  Total Rates = $" + cheapestTotalRate);
             }
         }
     }
