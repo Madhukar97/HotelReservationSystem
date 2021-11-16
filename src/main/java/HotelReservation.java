@@ -1,6 +1,8 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HotelReservation {
 
@@ -12,18 +14,17 @@ public class HotelReservation {
         HotelReservation obj = new HotelReservation();
         obj.addHotel();
         obj.findCheapestHotel();
-
     }
 
     /**
      * Method for adding Hotel to the HotelReservationSystem
      */
-    public void addHotel(){
+    public void addHotel() {
         while (true) {
             Scanner sc = new Scanner(System.in);
             System.out.println("Enter 1 to enter a hotel and 2 to exit");
             int option = sc.nextInt();
-            if (option==1){
+            if (option == 1) {
                 Hotel hotelObj = new Hotel();
                 System.out.println("Enter the name of hotel");
                 String name = sc.next();
@@ -31,9 +32,9 @@ public class HotelReservation {
                 System.out.println("Enter the regular rate");
                 int rate = sc.nextInt();
                 hotelObj.setRate(rate);
-                hotelReservation.put(name,hotelObj);
+                hotelReservation.put(name, hotelObj);
             }
-            if (option==2){
+            if (option == 2) {
                 break;
             }
         }
@@ -42,74 +43,44 @@ public class HotelReservation {
     /**
      * Method for finding the cheapest hotel rate
      */
-    public void findCheapestHotel(){
+    public int findCheapestHotel() {
 
-        int cheapestRate = 1000;
+        int cheapestRate = 9999999;
+        String[] array;
         String cheapestHotelName = null;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the dates ");
-        String[] array = sc.next().split(",");
-        for (Map.Entry<String,Hotel> hotelEntry: hotelReservation.entrySet()){
-            if (hotelEntry.getValue().getRate()<cheapestRate){
-                cheapestRate=hotelEntry.getValue().getRate();
+
+        while (true) {
+            System.out.println("Enter the dates in ddmmmyyyy format: ");
+            String dateFormat = sc.next();
+            array = dateFormat.split(",");
+            if (isDateValid(dateFormat)) {
+                break;
+            } else System.out.println("Incorrect Date format");
+        }
+        for (Map.Entry<String, Hotel> hotelEntry : hotelReservation.entrySet()) {
+            if (hotelEntry.getValue().getRate() < cheapestRate) {
+                cheapestRate = hotelEntry.getValue().getRate();
                 cheapestHotelName = hotelEntry.getValue().getHotelName();
             }
         }
-        int totalRate = cheapestRate* array.length;
-        System.out.println("The cheapest rate is = "+cheapestHotelName+"  "+totalRate+" Rs");
+        int totalRate = cheapestRate * array.length;
+        System.out.println("The cheapest rate is = " + cheapestHotelName + "  " + totalRate + " Rs");
 
+        return cheapestRate;
+    }
+
+    /**
+     * Method for validating the date input
+     *
+     * @param dateFormat takes in the String parameter of entered date format
+     * @return returns true if date format is valid
+     */
+    public boolean isDateValid(String dateFormat) {
+        String regex = "^[0-9]{2}[a-zA-Z]{3}[0-9]{4}.[0-9]{2}[a-zA-Z]{3}[0-9]{4}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(dateFormat);
+        return matcher.matches() && matcher.matches();
     }
 }
 
-/**
- * Hotel class for creating template for the hotel object
- */
-class Hotel {
-
-    String hotelName;
-    int rating;
-    String dayType;
-    int rate;
-    String customer_type;
-
-
-    public String getHotelName() {
-        return hotelName;
-    }
-
-    public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public String getDayType() {
-        return dayType;
-    }
-
-    public void setDayType(String dayType) {
-        this.dayType = dayType;
-    }
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
-
-    public String getCustomer_type() {
-        return customer_type;
-    }
-
-    public void setCustomer_type(String customer_type) {
-        this.customer_type = customer_type;
-    }
-}
