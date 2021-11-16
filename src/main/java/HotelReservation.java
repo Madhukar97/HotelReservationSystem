@@ -1,3 +1,5 @@
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,11 +64,12 @@ public class HotelReservation {
         int cheapestTotalRate = Integer.MAX_VALUE;
         String[] array;
         int hotelRating = 0;
+        int weekEnds=0;
         String cheapestHotelName = null;
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Enter the dates in ddmmmyyyy format: ");
+            System.out.println("Enter the dates in yyyy-mm-dd format: ");
             String dateFormat = sc.next();
             array = dateFormat.split(",");
             if (isDateValid(dateFormat)) {
@@ -74,8 +77,14 @@ public class HotelReservation {
             } else System.out.println("Incorrect Date format");
         }
 
-        System.out.println("Enter the number of weekend days (Saturdays and Sundays) : ");
-        int weekEnds = sc.nextInt();
+        DayOfWeek day1 = LocalDate.parse(array[0]).getDayOfWeek();
+        DayOfWeek day2 = LocalDate.parse(array[1]).getDayOfWeek();
+        if (day1.equals(DayOfWeek.SUNDAY) || day1.equals(DayOfWeek.SATURDAY)){
+            weekEnds++;
+        }
+        if (day2.equals(DayOfWeek.SUNDAY) || day2.equals(DayOfWeek.SATURDAY)){
+            weekEnds++;
+        }
 
         if (weekEnds == 0) {
             for (Map.Entry<String, Hotel> entry : hotelReservation.entrySet()) {
@@ -116,11 +125,12 @@ public class HotelReservation {
         int cheapestTotalRate = Integer.MAX_VALUE;
         String[] array;
         int hotelRating = 0;
+        int weekEnds=0;
         String cheapestHotelName = null;
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Enter the dates in ddmmmyyyy format: ");
+            System.out.println("Enter the dates in yyyy-mm-dd format: ");
             String dateFormat = sc.next();
             array = dateFormat.split(",");
             if (isDateValid(dateFormat)) {
@@ -128,8 +138,14 @@ public class HotelReservation {
             } else System.out.println("Incorrect Date format");
         }
 
-        System.out.println("Enter the number of weekend days (Saturdays and Sundays) : ");
-        int weekEnds = sc.nextInt();
+        DayOfWeek day1 = LocalDate.parse(array[0]).getDayOfWeek();
+        DayOfWeek day2 = LocalDate.parse(array[1]).getDayOfWeek();
+        if (day1.equals(DayOfWeek.SUNDAY) || day1.equals(DayOfWeek.SATURDAY)){
+            weekEnds++;
+        }
+        if (day2.equals(DayOfWeek.SUNDAY) || day2.equals(DayOfWeek.SATURDAY)){
+            weekEnds++;
+        }
 
         if (weekEnds == 0) {
             for (Map.Entry<String, Hotel> entry : hotelReservation.entrySet()) {
@@ -171,6 +187,7 @@ public class HotelReservation {
         int cheapestTotalRate = Integer.MAX_VALUE;
         int totalRate;
         String[] array;
+        int weekEnds=0;
         int hotelRating = 0;
         String[] hotelNamesArray = new String[hotelReservation.size()];
         Integer[] ratesArray = new Integer[hotelReservation.size()];
@@ -179,7 +196,7 @@ public class HotelReservation {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Enter the dates in ddmmmyyyy format: ");
+            System.out.println("Enter the dates in yyyy-mm-dd format: ");
             String dateFormat = sc.next();
             array = dateFormat.split(",");
             if (isDateValid(dateFormat)) {
@@ -187,8 +204,14 @@ public class HotelReservation {
             } else System.out.println("Incorrect Date format");
         }
 
-        System.out.println("Enter the number of weekend days (Saturdays and Sundays) : ");
-        int weekEnds = sc.nextInt();
+        DayOfWeek day1 = LocalDate.parse(array[0]).getDayOfWeek();
+        DayOfWeek day2 = LocalDate.parse(array[1]).getDayOfWeek();
+        if (day1.equals(DayOfWeek.SUNDAY) || day1.equals(DayOfWeek.SATURDAY)){
+            weekEnds++;
+        }
+        if (day2.equals(DayOfWeek.SUNDAY) || day2.equals(DayOfWeek.SATURDAY)){
+            weekEnds++;
+        }
 
         if (weekEnds == 0) {
             for (Map.Entry<String, Hotel> entry : hotelReservation.entrySet()) {
@@ -255,7 +278,7 @@ public class HotelReservation {
      * @return returns true if date format is valid
      */
     public boolean isDateValid(String dateFormat) {
-        String regex = "^[0-9]{2}[a-zA-Z]{3}[0-9]{4}.[0-9]{2}[a-zA-Z]{3}[0-9]{4}$";
+        String regex = "^[0-9]{4}-[0-9]{2}-[0-9]{2}.[0-9]{4}-[0-9]{2}-[0-9]{2}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(dateFormat);
         return matcher.matches() && matcher.matches();
