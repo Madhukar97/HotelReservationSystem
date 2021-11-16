@@ -8,8 +8,17 @@ class Hotel {
     String dayType;
     int weekdayRate;
     int weekendRate;
+    int avgRate = weekdayRate+weekendRate;
     int specialWeekdayRate;
     int specialWeekendRate;
+
+    public int getAvgRate() {
+        return avgRate;
+    }
+
+    public void setAvgRate(int avgRate) {
+        this.avgRate = avgRate;
+    }
 
     public int getSpecialWeekdayRate() {
         return specialWeekdayRate;
