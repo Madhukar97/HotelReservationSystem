@@ -53,7 +53,11 @@ public class HotelReservation {
         System.out.println("Enter 0 if regular customer and 1 for Reward Customer");
         int type = sc.nextInt();
         if (type == 0) {
-            findBestRatedHotel();
+            System.out.println("Enter 0 for Cheapest Hotel and 1 for Best Rated Hotel");
+            int option = sc.nextInt();
+            if (option == 0) {
+                findCheapestHotel();
+            } else findBestRatedHotel();
         } else findBestRatedHotelRewardCustomer();
     }
 
@@ -64,7 +68,7 @@ public class HotelReservation {
         int cheapestTotalRate = Integer.MAX_VALUE;
         String[] array;
         int hotelRating = 0;
-        int weekEnds=0;
+        int weekEnds = 0;
         String cheapestHotelName = null;
         Scanner sc = new Scanner(System.in);
 
@@ -79,10 +83,10 @@ public class HotelReservation {
 
         DayOfWeek day1 = LocalDate.parse(array[0]).getDayOfWeek();
         DayOfWeek day2 = LocalDate.parse(array[1]).getDayOfWeek();
-        if (day1.equals(DayOfWeek.SUNDAY) || day1.equals(DayOfWeek.SATURDAY)){
+        if (day1.equals(DayOfWeek.SUNDAY) || day1.equals(DayOfWeek.SATURDAY)) {
             weekEnds++;
         }
-        if (day2.equals(DayOfWeek.SUNDAY) || day2.equals(DayOfWeek.SATURDAY)){
+        if (day2.equals(DayOfWeek.SUNDAY) || day2.equals(DayOfWeek.SATURDAY)) {
             weekEnds++;
         }
 
@@ -125,7 +129,7 @@ public class HotelReservation {
         int cheapestTotalRate = Integer.MAX_VALUE;
         String[] array;
         int hotelRating = 0;
-        int weekEnds=0;
+        int weekEnds = 0;
         String cheapestHotelName = null;
         Scanner sc = new Scanner(System.in);
 
@@ -140,10 +144,10 @@ public class HotelReservation {
 
         DayOfWeek day1 = LocalDate.parse(array[0]).getDayOfWeek();
         DayOfWeek day2 = LocalDate.parse(array[1]).getDayOfWeek();
-        if (day1.equals(DayOfWeek.SUNDAY) || day1.equals(DayOfWeek.SATURDAY)){
+        if (day1.equals(DayOfWeek.SUNDAY) || day1.equals(DayOfWeek.SATURDAY)) {
             weekEnds++;
         }
-        if (day2.equals(DayOfWeek.SUNDAY) || day2.equals(DayOfWeek.SATURDAY)){
+        if (day2.equals(DayOfWeek.SUNDAY) || day2.equals(DayOfWeek.SATURDAY)) {
             weekEnds++;
         }
 
@@ -187,7 +191,7 @@ public class HotelReservation {
         int cheapestTotalRate = Integer.MAX_VALUE;
         int totalRate;
         String[] array;
-        int weekEnds=0;
+        int weekEnds = 0;
         int hotelRating = 0;
         String[] hotelNamesArray = new String[hotelReservation.size()];
         Integer[] ratesArray = new Integer[hotelReservation.size()];
@@ -206,10 +210,10 @@ public class HotelReservation {
 
         DayOfWeek day1 = LocalDate.parse(array[0]).getDayOfWeek();
         DayOfWeek day2 = LocalDate.parse(array[1]).getDayOfWeek();
-        if (day1.equals(DayOfWeek.SUNDAY) || day1.equals(DayOfWeek.SATURDAY)){
+        if (day1.equals(DayOfWeek.SUNDAY) || day1.equals(DayOfWeek.SATURDAY)) {
             weekEnds++;
         }
-        if (day2.equals(DayOfWeek.SUNDAY) || day2.equals(DayOfWeek.SATURDAY)){
+        if (day2.equals(DayOfWeek.SUNDAY) || day2.equals(DayOfWeek.SATURDAY)) {
             weekEnds++;
         }
 
