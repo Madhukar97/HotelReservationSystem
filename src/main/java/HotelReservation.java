@@ -4,12 +4,20 @@ import java.util.Scanner;
 
 public class HotelReservation {
 
+    Map<String, Hotel> hotelReservation = new HashMap<>();
+
     public static void main(String[] args) {
 
         System.out.println("Welcome to the Hotel Reservation System");
+        HotelReservation obj = new HotelReservation();
+        obj.addHotel();
 
-        Map<String, Hotel> hotelReservation = new HashMap<>();
+    }
 
+    /**
+     * Method for adding Hotel to the HotelReservationSystem
+     */
+    public void addHotel(){
         while (true) {
             Scanner sc = new Scanner(System.in);
             System.out.println("Enter 1 to enter a hotel and 2 to exit");
@@ -17,7 +25,7 @@ public class HotelReservation {
             if (option==1){
                 Hotel hotelObj = new Hotel();
                 System.out.println("Enter the name of hotel");
-                String name = sc.nextLine();
+                String name = sc.next();
                 hotelObj.setHotelName(name);
                 hotelReservation.put(name,hotelObj);
             }
@@ -25,10 +33,12 @@ public class HotelReservation {
                 break;
             }
         }
-
     }
 }
 
+/**
+ * Hotel class for creating template for the hotel object
+ */
 class Hotel {
 
     String hotelName;
