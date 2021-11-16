@@ -6,7 +6,25 @@ class Hotel {
     String hotelName;
     int rating;
     String dayType;
-    int rate;
+    int weekdayRate;
+    int weekendRate;
+
+    public int getWeekdayRate() {
+        return weekdayRate;
+    }
+
+    public void setWeekdayRate(int weekdayRate) {
+        this.weekdayRate = weekdayRate;
+    }
+
+    public int getWeekendRate() {
+        return weekendRate;
+    }
+
+    public void setWeekendRate(int weekendRate) {
+        this.weekendRate = weekendRate;
+    }
+
     String customer_type;
 
     public String getHotelName() {
@@ -31,14 +49,6 @@ class Hotel {
 
     public void setDayType(String dayType) {
         this.dayType = dayType;
-    }
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
     }
 
     public String getCustomer_type() {

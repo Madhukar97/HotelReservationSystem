@@ -29,9 +29,9 @@ public class HotelReservation {
                 System.out.println("Enter the name of hotel");
                 String name = sc.next();
                 hotelObj.setHotelName(name);
-                System.out.println("Enter the regular rate");
-                int rate = sc.nextInt();
-                hotelObj.setRate(rate);
+                System.out.println("Enter the weekday and weekend rate");
+                hotelObj.setWeekdayRate(sc.nextInt());
+                hotelObj.setWeekendRate(sc.nextInt());
                 hotelReservation.put(name, hotelObj);
             }
             if (option == 2) {
@@ -58,9 +58,10 @@ public class HotelReservation {
                 break;
             } else System.out.println("Incorrect Date format");
         }
+
         for (Map.Entry<String, Hotel> hotelEntry : hotelReservation.entrySet()) {
-            if (hotelEntry.getValue().getRate() < cheapestRate) {
-                cheapestRate = hotelEntry.getValue().getRate();
+            if (hotelEntry.getValue().getWeekdayRate() < cheapestRate) {
+                cheapestRate = hotelEntry.getValue().getWeekdayRate();
                 cheapestHotelName = hotelEntry.getValue().getHotelName();
             }
         }
