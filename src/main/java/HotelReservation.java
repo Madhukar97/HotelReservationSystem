@@ -11,7 +11,7 @@ public class HotelReservation {
         System.out.println("Welcome to the Hotel Reservation System");
         HotelReservation obj = new HotelReservation();
         obj.addHotel();
-        obj.findBestRatedHotel();
+        obj.customerType();
     }
 
     /**
@@ -41,6 +41,18 @@ public class HotelReservation {
                 break;
             }
         }
+    }
+
+    /**
+     * Method for determining the customerType
+     */
+    public void customerType() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter 0 if regular customer and 1 for Reward Customer");
+        int type = sc.nextInt();
+        if (type == 0) {
+            findBestRatedHotel();
+        } else findBestRatedHotelRewardCustomer();
     }
 
     /**
@@ -89,6 +101,60 @@ public class HotelReservation {
             for (Map.Entry<String, Hotel> entry : hotelReservation.entrySet()) {
                 if (hotelRating < entry.getValue().getRating()) {
                     cheapestTotalRate = entry.getValue().getWeekdayRate() + entry.getValue().getWeekendRate();
+                    cheapestHotelName = entry.getKey();
+                    hotelRating = entry.getValue().getRating();
+                }
+            }
+            System.out.println(" The Best Rated hotel is: " + cheapestHotelName + ", Rating: " + hotelRating + ", Total Rates = $" + cheapestTotalRate);
+        }
+    }
+
+    /**
+     * Method to find the Best Rated Hotel for Reward Customer
+     */
+    public void findBestRatedHotelRewardCustomer() {
+        int cheapestTotalRate = Integer.MAX_VALUE;
+        String[] array;
+        int hotelRating = 0;
+        String cheapestHotelName = null;
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Enter the dates in ddmmmyyyy format: ");
+            String dateFormat = sc.next();
+            array = dateFormat.split(",");
+            if (isDateValid(dateFormat)) {
+                break;
+            } else System.out.println("Incorrect Date format");
+        }
+
+        System.out.println("Enter the number of weekend days (Saturdays and Sundays) : ");
+        int weekEnds = sc.nextInt();
+
+        if (weekEnds == 0) {
+            for (Map.Entry<String, Hotel> entry : hotelReservation.entrySet()) {
+                if (hotelRating < entry.getValue().getRating()) {
+                    cheapestTotalRate = entry.getValue().getSpecialWeekdayRate() * 2;
+                    cheapestHotelName = entry.getKey();
+                    hotelRating = entry.getValue().getRating();
+                }
+            }
+            System.out.println(" The Best Rated hotel is: " + cheapestHotelName + ", Rating: " + hotelRating + ", Total Rates = $" + cheapestTotalRate);
+        }
+        if (weekEnds == 2) {
+            for (Map.Entry<String, Hotel> entry : hotelReservation.entrySet()) {
+                if (hotelRating < entry.getValue().getRating()) {
+                    cheapestTotalRate = entry.getValue().getSpecialWeekendRate() * 2;
+                    cheapestHotelName = entry.getKey();
+                    hotelRating = entry.getValue().getRating();
+                }
+            }
+            System.out.println(" The Best Rated hotel is: " + cheapestHotelName + ", Rating: " + hotelRating + ", Total Rates = $" + cheapestTotalRate);
+        }
+        if (weekEnds == 1) {
+            for (Map.Entry<String, Hotel> entry : hotelReservation.entrySet()) {
+                if (hotelRating < entry.getValue().getRating()) {
+                    cheapestTotalRate = entry.getValue().getSpecialWeekdayRate() + entry.getValue().getSpecialWeekendRate();
                     cheapestHotelName = entry.getKey();
                     hotelRating = entry.getValue().getRating();
                 }
@@ -180,6 +246,7 @@ public class HotelReservation {
             }
         }
     }
+
 
     /**
      * Method for validating the date input
