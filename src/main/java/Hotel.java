@@ -5,9 +5,28 @@ class Hotel {
 
     String hotelName;
     int rating;
-    String dayType;
-    int rate;
-    String customer_type;
+    int weekdayRate;
+    int weekendRate;
+    int specialWeekdayRate;
+    int specialWeekendRate;
+    int avgRate = weekdayRate + weekendRate;
+
+    public Hotel(String hotelName, int rating, int weekdayRate, int weekendRate, int specialWeekdayRate, int specialWeekendRate) {
+        this.hotelName = hotelName;
+        this.rating = rating;
+        this.weekdayRate = weekdayRate;
+        this.weekendRate = weekendRate;
+        this.specialWeekdayRate = specialWeekdayRate;
+        this.specialWeekendRate = specialWeekendRate;
+    }
+
+    public int getAvgRate() {
+        return avgRate;
+    }
+
+    public void setAvgRate(int avgRate) {
+        this.avgRate = avgRate;
+    }
 
     public String getHotelName() {
         return hotelName;
@@ -25,27 +44,35 @@ class Hotel {
         this.rating = rating;
     }
 
-    public String getDayType() {
-        return dayType;
+    public int getWeekdayRate() {
+        return weekdayRate;
     }
 
-    public void setDayType(String dayType) {
-        this.dayType = dayType;
+    public void setWeekdayRate(int weekdayRate) {
+        this.weekdayRate = weekdayRate;
     }
 
-    public int getRate() {
-        return rate;
+    public int getWeekendRate() {
+        return weekendRate;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setWeekendRate(int weekendRate) {
+        this.weekendRate = weekendRate;
     }
 
-    public String getCustomer_type() {
-        return customer_type;
+    public int getSpecialWeekdayRate() {
+        return specialWeekdayRate;
     }
 
-    public void setCustomer_type(String customer_type) {
-        this.customer_type = customer_type;
+    public void setSpecialWeekdayRate(int specialWeekdayRate) {
+        this.specialWeekdayRate = specialWeekdayRate;
+    }
+
+    public int getSpecialWeekendRate() {
+        return specialWeekendRate;
+    }
+
+    public void setSpecialWeekendRate(int specialWeekendRate) {
+        this.specialWeekendRate = specialWeekendRate;
     }
 }

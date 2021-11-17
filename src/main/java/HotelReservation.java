@@ -1,8 +1,7 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class HotelReservation {
 
@@ -13,74 +12,45 @@ public class HotelReservation {
         System.out.println("Welcome to the Hotel Reservation System");
         HotelReservation obj = new HotelReservation();
         obj.addHotel();
-        obj.findCheapestHotel();
+        obj.enterDates();
     }
 
     /**
      * Method for adding Hotel to the HotelReservationSystem
      */
     public void addHotel() {
-        while (true) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Enter 1 to enter a hotel and 2 to exit");
-            int option = sc.nextInt();
-            if (option == 1) {
-                Hotel hotelObj = new Hotel();
-                System.out.println("Enter the name of hotel");
-                String name = sc.next();
-                hotelObj.setHotelName(name);
-                System.out.println("Enter the regular rate");
-                int rate = sc.nextInt();
-                hotelObj.setRate(rate);
-                hotelReservation.put(name, hotelObj);
-            }
-            if (option == 2) {
-                break;
-            }
-        }
+        Hotel obj1 = new Hotel("Lakewood", 3, 110, 90, 80, 80);
+        Hotel obj2 = new Hotel("Bridgewood", 4, 150, 50, 110, 50);
+        Hotel obj3 = new Hotel("Ridgewood", 5, 220, 150, 100, 40);
+        hotelReservation.put(obj1.getHotelName(), obj1);
+        hotelReservation.put(obj2.getHotelName(), obj2);
+        hotelReservation.put(obj3.getHotelName(), obj3);
     }
 
     /**
-     * Method for finding the cheapest hotel rate
+     * Method for inputting the dates from user
      */
-    public int findCheapestHotel() {
-
-        int cheapestRate = 9999999;
-        String[] array;
-        String cheapestHotelName = null;
+    public void enterDates() {
         Scanner sc = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("Enter the dates in ddmmmyyyy format: ");
-            String dateFormat = sc.next();
-            array = dateFormat.split(",");
-            if (isDateValid(dateFormat)) {
-                break;
-            } else System.out.println("Incorrect Date format");
-        }
-        for (Map.Entry<String, Hotel> hotelEntry : hotelReservation.entrySet()) {
-            if (hotelEntry.getValue().getRate() < cheapestRate) {
-                cheapestRate = hotelEntry.getValue().getRate();
-                cheapestHotelName = hotelEntry.getValue().getHotelName();
-            }
-        }
-        int totalRate = cheapestRate * array.length;
-        System.out.println("The cheapest rate is = " + cheapestHotelName + "  " + totalRate + " Rs");
-
-        return cheapestRate;
+        System.out.println("Enter the 2 dates in yyyymmdd format: ");
+        String date1 = sc.nextLine();
+        String date2 = sc.nextLine();
+        findCheapestHotel(date1, date2);
     }
 
     /**
-     * Method for validating the date input
+     * Method for finding the cheapest Hotel for given dates
      *
-     * @param dateFormat takes in the String parameter of entered date format
-     * @return returns true if date format is valid
+     * @param d1 day1 is passed as String parameter
+     * @param d2 day2 is passed as String parameter
+     * @return returns the cheapest total rates
      */
-    public boolean isDateValid(String dateFormat) {
-        String regex = "^[0-9]{2}[a-zA-Z]{3}[0-9]{4}.[0-9]{2}[a-zA-Z]{3}[0-9]{4}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(dateFormat);
-        return matcher.matches() && matcher.matches();
+    public int findCheapestHotel(String d1, String d2) {
+        DayOfWeek day1 = LocalDate.parse(d1).getDayOfWeek();
+        DayOfWeek day2 = LocalDate.parse(d2).getDayOfWeek();
+
+        List<Hotel> hotelObjList = hotelReservation.values().stream().sorted(Comparator.comparing(Hotel -> Hotel.weekdayRate)).collect(Collectors.toList());
+        System.out.println(" The cheapest hotel is " + hotelObjList.get(0).getHotelName() + ", Rating : " + hotelObjList.get(0).getRating() + ", Total Rates = $" + hotelObjList.get(0).getWeekdayRate() * 2);
+        return (hotelObjList.get(0).getWeekdayRate() * 2);
     }
 }
-
